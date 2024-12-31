@@ -45,12 +45,13 @@ const AccountProvider: React.FC<AccountProviderProps> = ({ children }) => {
   const { getDetails, error, data } = useDetails();
   const [detailsLoading, setDetailsLoading] = useState<boolean>(false);
   const location = useLocation();
-  const [isDashboard, setIsDashboard] = useState<boolean>(false);
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
     console.log(location.pathname);
     if(location.pathname === "/dashboard") {
-      setIsDashboard(true);
+      const tkn = localStorage.getItem('token');
+      setToken(tkn);
     }
   }, [location.pathname])
 
@@ -93,19 +94,14 @@ const AccountProvider: React.FC<AccountProviderProps> = ({ children }) => {
   }, [error]);
 
   useEffect(() => {
-    if(isDashboard) {
-      const token = localStorage.getItem('token');
-
       const fetchDetails = async () => {
         if (token) {
           setDetailsLoading(true);
           await getDetails(token);
         }
-      };
-  
-      fetchDetails();
     }
-  }, [isDashboard]); 
+    fetchDetails();
+  }, [token]); 
 
   return (
     <AccountContext.Provider
