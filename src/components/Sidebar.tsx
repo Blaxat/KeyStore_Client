@@ -172,7 +172,7 @@ const Sidebar = () => {
         <DeleteIcon />
       </button>
     )}
-    {!detailsLoading && (
+    {!detailsLoading && mnemonic != "" && (
       <button
         onClick={generateKeypair}
         disabled={isLoading || generatedAccount !== null}

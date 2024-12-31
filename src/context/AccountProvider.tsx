@@ -43,6 +43,21 @@ const AccountProvider: React.FC<AccountProviderProps> = ({ children }) => {
   const [account, setAccount] = useState<string>('');
   const { getDetails, error, data } = useDetails();
   const [detailsLoading, setDetailsLoading] = useState<boolean>(false);
+  const [storedValue, setStoredValue] = useState<string | null>(() =>
+    localStorage.getItem('token')
+  );
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setStoredValue(localStorage.getItem('token'));
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   useEffect(() => {
     console.log('Provider:',detailsLoading);
@@ -50,6 +65,7 @@ const AccountProvider: React.FC<AccountProviderProps> = ({ children }) => {
 
   useEffect(() => {
       if (data) {
+        console.log(data.mnemonics);
         setMnemonic(data.mnemonics);
         setAccounts(data.accounts);
 
@@ -83,17 +99,17 @@ const AccountProvider: React.FC<AccountProviderProps> = ({ children }) => {
   }, [error]);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
 
     const fetchDetails = async () => {
-      if (token) {
+      if (storedValue) {
+        const token = storedValue;
         setDetailsLoading(true);
         await getDetails(token);
       }
     };
 
     fetchDetails();
-  }, []); 
+  }, [storedValue]); 
 
   return (
     <AccountContext.Provider
