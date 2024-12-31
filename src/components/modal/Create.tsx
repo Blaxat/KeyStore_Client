@@ -8,8 +8,7 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
 const Create = ({
-  isModalOpen,
-  closeModal,
+  isModalOpen
 }: {
   isModalOpen: boolean;
   closeModal: () => void;

@@ -12,7 +12,6 @@ const ShowMnemonics = ({
   isModalOpen: boolean;
   closeModal: () => void;
 }) => {
-  const [err, setError] = useState("");
   const [toastOpen, setToastOpen] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string>("");
   const [toastSeverity, setToastSeverity] = useState<"error" | "success">(
@@ -28,7 +27,6 @@ const ShowMnemonics = ({
 
   useEffect(() => {
     if (error) {
-      setError(error);
       setIsLoading(false);
       setToastMessage(error);
       setToastSeverity("error");
