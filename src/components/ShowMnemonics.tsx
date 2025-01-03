@@ -69,7 +69,13 @@ const ShowMnemonics = ({
     <div>
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center font-[Poppins] items-center">
-          <div className="bg-gray-800 text-white rounded-lg shadow-lg p-6 w-[400px]">
+          <div className="bg-gray-800 text-white rounded-lg shadow-lg p-6 w-[400px] relative">
+            <button
+              onClick={closeModal}
+              className="absolute top-3 right-3 text-gray-400 hover:text-gray-200 focus:outline-none"
+            >
+              ✕
+            </button>
             {!showPhrase ? (
               <form
                 onSubmit={handleSubmit}
@@ -119,7 +125,6 @@ const ShowMnemonics = ({
         </div>
       )}
 
-      {/* Toast Notification */}
       <Snackbar
         open={toastOpen}
         autoHideDuration={6000}

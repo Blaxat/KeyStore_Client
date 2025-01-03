@@ -4,9 +4,11 @@ import useCreateWallet from "../../hooks/useCreateWallet";
 import { useNavigate } from "react-router-dom";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Import = ({
-  isModalOpen
+  isModalOpen,
+  closeModal
 }: {
   isModalOpen: boolean;
   closeModal: () => void;
@@ -37,7 +39,7 @@ const Import = ({
   useEffect(() => {
     if (error) {
       setErr(error);
-      setToastOpen(true); // Show toast when error exists
+      setToastOpen(true); 
       console.error(error);
     }
   }, [error]);
@@ -68,7 +70,13 @@ const Import = ({
     <div>
       {isModalOpen ? (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-gray-800 rounded-lg shadow-lg p-6 w-[400px]">
+          <div className="bg-gray-800 text-white rounded-lg shadow-lg p-6 w-[400px] relative">
+            <button
+              onClick={closeModal}
+              className="absolute top-2 right-2 text-gray-400 hover:text-white"
+            >
+              <CloseIcon />
+            </button>
             {!renderForm ? (
               <>
                 <div className="p-2 flex flex-wrap justify-evenly">

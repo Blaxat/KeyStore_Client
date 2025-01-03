@@ -6,9 +6,11 @@ import useCreateWallet from "../../hooks/useCreateWallet";
 import { useNavigate } from "react-router-dom";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Create = ({
-  isModalOpen
+  isModalOpen,
+  closeModal
 }: {
   isModalOpen: boolean;
   closeModal: () => void;
@@ -32,7 +34,7 @@ const Create = ({
   useEffect(() => {
     if (error) {
       setErr(error);
-      setToastOpen(true); // Open toast when error exists
+      setToastOpen(true); 
       console.log(error);
     }
   }, [error]);
@@ -71,7 +73,13 @@ const Create = ({
     <div>
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center font-[Poppins] items-center">
-          <div className="bg-gray-800 text-white rounded-lg shadow-lg p-6 w-[400px]">
+          <div className="bg-gray-800 text-white rounded-lg shadow-lg p-6 w-[400px] relative">
+            <button
+              onClick={closeModal}
+              className="absolute top-2 right-2 text-gray-400 hover:text-white"
+            >
+              <CloseIcon />
+            </button>
             {!renderForm ? (
               <>
                 <div className="p-2 flex flex-wrap justify-evenly">

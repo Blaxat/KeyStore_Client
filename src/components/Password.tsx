@@ -79,7 +79,6 @@ const Password = ({
         )}
       </form>
 
-      {/* Toast Notification */}
       <Snackbar
         open={toastOpen}
         autoHideDuration={6000}
